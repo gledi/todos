@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}TODOS{% endblock title %}</title>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li>
+          <a href="{% url 'task_list' %}">Tasks</a>
+        </li>
+        <li>
+          <a href="{% url 'post_list' %}">Posts</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'profile' %}">{{ user.get_full_name }}</a>
+        </li>
+        <li>
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Sign out</button>
+          </form>
+        </li>
+        {% else %}
+          <li>
+            <a href="{% url 'login' %}">Sign In</a>
+          </li>
+          <li>
+            <a href="{% url 'register' %}">Register</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+  {% block content %}{% endblock content %}
+  <footer>
+    <p>Copyright &copy; 2024 - Py21</p>
+  </footer>
+</body>
+</html>

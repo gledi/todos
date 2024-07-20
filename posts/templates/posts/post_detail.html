@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ post.caption }}</h1>
+<div>
+    <figure>
+        <img src="{{ post.photo_single.url }}" alt="{{ post.caption }}" height="400" width="600">
+        <figcaption>{{ post.caption }}</figcaption>
+    </figure>
+</div>
+{% endblock content %}

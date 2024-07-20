@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Posts</h1>
+<p>
+    <a href="{% url 'post_add' %}">New Post</a>
+</p>
+{% for post in posts %}
+<div>
+    <figure>
+        <img src="{{ post.photo_thumbnail.url }}" alt="{{ post.caption }}" height="84" width="84">
+        <figcaption>
+            <a href="{% url 'post_detail' pk=post.pk %}">{{ post.caption }}</a>
+        </figcaption>
+    </figure>
+</div>
+{% empty %}
+<div>
+    No posts yet.
+</div>
+{% endfor %}
+{% endblock content %}
