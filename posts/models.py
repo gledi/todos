@@ -1,17 +1,7 @@
 from django.db import models
+from django.conf import settings
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
-
-
-class User(models.Model):
-    name = models.CharField(max_length=255)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=255)
-
-    # posts
-
-    def __str__(self):
-        return self.name
 
 
 class Post(models.Model):
@@ -25,7 +15,7 @@ class Post(models.Model):
                                   format='JPEG',
                                   options={'quality': 80})
     caption = models.TextField(blank=True)
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='posts')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='posts')
 
     # user_id
 
