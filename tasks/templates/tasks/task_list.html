@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load i18n %}
+{% load i18n static %}
 
 {% block title %}Task List - {{ block.super }}{% endblock title %}
 
@@ -11,7 +11,7 @@
     <a href="{% url 'task_add' %}">Add new Task</a>
 {% endif %}
 </p>
-<table class="table">
+<table class="table tbl-task-list">
     <thead>
     <tr>
         <th>Task</th>
@@ -32,7 +32,9 @@
         </td>
         <td class="text-center">
             {% if not task.is_done %}
-            <button type="button" class="btn btn-sm btn-secondary">Mark as done</button>
+            <button type="button"
+                    class="btn btn-sm btn-secondary"
+                    data-url="{% url 'task_done' pk=task.pk %}">Mark as done</button>
             {% endif %}
         </td>
     </tr>
@@ -42,3 +44,7 @@
     </tbody>
 </table>
 {% endblock content %}
+{% block scripts %}
+{{ block.super }}
+<script src="{% static 'tasks/tasks.js' %}"></script>
+{% endblock scripts %}

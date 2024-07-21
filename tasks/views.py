@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
 from .models import Task
@@ -48,3 +50,13 @@ def delete_task(request, pk):
         task.delete()
         return redirect("task_list")
     return render(request, 'tasks/task_delete.html', {'task': task})
+
+
+@login_required
+@require_POST
+@csrf_exempt
+def mark_task_as_done(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    task.is_done = True
+    task.save()
+    return JsonResponse({'done': True})
