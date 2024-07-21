@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Remove Post</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    <div class="alert alert-danger">
+        Are you sure you want to remove this blog post: {{ post.title }}
+    </div>
+    <button type="submit" class="btn btn-danger">Yes</button>
+    <a href="{% url 'blog:post_detail' slug=post.slug %}" class="btn btn-info">No</a>
+</form>
+{% endblock content %}

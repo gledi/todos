@@ -31,10 +31,10 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'task_list' %}">Tasks</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'post_list' %}">Posts</a>
+                        <a class="nav-link" href="{% url 'blog:post_list' %}">Blog</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">About Us</a>
+                        <a class="nav-link" href="#">Shop</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-md-0">
@@ -43,7 +43,10 @@
                         <a href="{% url 'profile' %}" class="nav-link">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'logout' %}" class="nav-link">Sign Out</a>
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-warning">Sign out</button>
+                        </form>
                     </li>
                     {% else %}
                     <li class="nav-item">
@@ -60,7 +63,14 @@
 </header>
 <main class="flex-shrink-0">
   <div class="container">
-    {% block content %}{% endblock content %}
+  {% if messages %}
+  <section class="">
+      {% for message in messages %}
+      <div class="alert alert-warning">{{ message }}</div>
+      {% endfor %}
+  </section>
+  {% endif %}
+  {% block content %}{% endblock content %}
   </div>
 </main>
 <footer class="footer mt-auto py-3 bg-body-tertiary">
