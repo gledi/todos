@@ -11,15 +11,34 @@
     <a href="{% url 'task_add' %}">Add new Task</a>
 {% endif %}
 </p>
-<ul>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Task</th>
+        <th class="text-center">Done?</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
     {% for task in tasks %}
-    <li>
-        <a href="{% url 'task_detail' pk=task.pk %}">
-            {{ task.title }}
-        </a>
-    </li>
+    <tr>
+        <td>
+            <a href="{% url 'task_detail' pk=task.pk %}">
+                {{ task.title }}
+            </a>
+        </td>
+        <td class="text-center">
+            {{ task.is_done }}
+        </td>
+        <td class="text-center">
+            {% if not task.is_done %}
+            <button type="button" class="btn btn-sm btn-secondary">Mark as done</button>
+            {% endif %}
+        </td>
+    </tr>
     {% empty %}
     <li>{% translate 'No tasks have been added yet!' %}</li>
     {% endfor %}
-</ul>
+    </tbody>
+</table>
 {% endblock content %}
