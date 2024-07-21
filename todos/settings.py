@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     "debug_toolbar",
     "imagekit",
+    "crispy_forms",
+    "crispy_bootstrap5",
 
     "users",
     "tasks", # "tasks.apps.TasksConfig"
@@ -147,3 +149,7 @@ INTERNAL_IPS = ["127.0.0.1",]
 
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = ("bootstrap5",)
+CRISPY_TEMPLATE_PACK = "bootstrap5"
