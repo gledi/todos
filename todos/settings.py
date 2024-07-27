@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "users",
     "tasks", # "tasks.apps.TasksConfig"
     "blog",
+    "shop",
 ]
 
 AUTH_USER_MODEL = "users.User"

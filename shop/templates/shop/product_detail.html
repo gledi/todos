@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between">
+  <section class="w-75 pr-3">
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>{{ product.name }}</h1>
+  </div>
+  <div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-indicators">
+     {% for pic in product.pictures.all %}
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active" aria-current="true"{% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+      {% endfor %}
+    </div>
+    <div class="carousel-inner">
+    {% for pic in product.pictures.all %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ pic.photo.url }}" class="d-block w-100" height="600" alt="{{ pic }}">
+      </div>
+    {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  </section>
+  <section class="w-25">
+    <p class="fw-medium fs-3">
+      {{ product.get_currency_display }} {{ product.price }}
+    </p>
+    <div>
+      <button class="btn btn-danger btn-lg">Buy</button>
+    </div>
+    <p>
+      {{ product.description }}
+    </p>
+  </section>
+</div>
+{% endblock content %}
