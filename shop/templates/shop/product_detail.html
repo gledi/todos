@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 <div class="d-flex justify-content-between">
   <section class="w-75 pr-3">
@@ -34,7 +34,7 @@
       {{ product.get_currency_display }} {{ product.price }}
     </p>
     <div>
-      <button class="btn btn-danger btn-lg">Buy</button>
+      <button class="btn btn-danger btn-lg btn-buy">Buy</button>
     </div>
     <p>
       {{ product.description }}
@@ -42,3 +42,13 @@
   </section>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+{{ block.super }}
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+const PUB_KEY_URL = '{% url "pub-key" %}';
+const CHECKOUT_SESSION_URL = '{% url "checkout-session" pk=product.pk %}';
+</script>
+<script src="{% static 'shop/scripts/shop.js' %}"></script>
+{% endblock scripts %}

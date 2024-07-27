@@ -3,6 +3,8 @@ pillow==10.4.0
 django-imagekit==5.0.0
 django-crispy-forms==2.3
 crispy-bootstrap5==2024.2
+environs==11.0.0
+stripe==10.5.0
 
 ipython==8.26.0
 django-debug-toolbar==4.4.6
