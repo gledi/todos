@@ -166,3 +166,5 @@ static/*
 
 media/*
 !media/.gitkeep
+
+.envrc

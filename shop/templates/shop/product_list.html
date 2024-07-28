@@ -1,27 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Shop</h1>
-<div class="d-flex flex-wrap justify-content-between">
+  <h1>Shop</h1>
+  <div class="d-flex flex-wrap justify-content-between">
     {% for product in products %}
-    <div class="card mb-3" style="max-width: 49%;">
+      <div class="card mb-3" style="max-width: 49%;">
         <div class="row g-0">
-            <div class="col-md-4">
-                <img src="{{ product.primary_picture }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+          <div class="col-md-4">
+            <img src="{{ product.primary_picture }}" class="img-fluid rounded-start" alt="{{ product.name }}">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">{{ product.name }}</h5>
+              <p class="card-text">{{ product.description }}</p>
+              <a href="{% url 'product-detail' pk=product.pk %}" class="btn btn-primary">View Product</a>
             </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.description }}</p>
-                    <a href="{% url 'product-detail' pk=product.pk %}" class="btn btn-primary">View Product</a>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
-{% empty %}
-    <div class="alert alert-warning">
+      </div>
+    {% empty %}
+      <div class="alert alert-warning">
         No products to buy yet!
-    </div>
-{% endfor %}
-</div>
+      </div>
+    {% endfor %}
+  </div>
 {% endblock content %}

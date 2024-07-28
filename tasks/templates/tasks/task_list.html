@@ -5,46 +5,47 @@
 {% block title %}Task List - {{ block.super }}{% endblock title %}
 
 {% block content %}
-<h1>{% translate 'Tasks' %}</h1>
-<p>
-{% if user.is_authenticated %}
-    <a href="{% url 'task_add' %}">Add new Task</a>
-{% endif %}
-</p>
-<table class="table tbl-task-list">
+  <h1>{% translate 'Tasks' %}</h1>
+  <p>
+    {% if user.is_authenticated %}
+      <a href="{% url 'task_add' %}">Add new Task</a>
+    {% endif %}
+  </p>
+  <table class="table tbl-task-list">
     <thead>
     <tr>
-        <th>Task</th>
-        <th class="text-center">Done?</th>
-        <th></th>
+      <th>Task</th>
+      <th class="text-center">Done?</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
     {% for task in tasks %}
-    <tr>
+      <tr>
         <td>
-            <a href="{% url 'task_detail' pk=task.pk %}">
-                {{ task.title }}
-            </a>
+          <a href="{% url 'task_detail' pk=task.pk %}">
+            {{ task.title }}
+          </a>
         </td>
         <td class="text-center">
-            {{ task.is_done }}
+          {{ task.is_done }}
         </td>
         <td class="text-center">
-            {% if not task.is_done %}
+          {% if not task.is_done %}
             <button type="button"
                     class="btn btn-sm btn-secondary"
-                    data-url="{% url 'task_done' pk=task.pk %}">Mark as done</button>
-            {% endif %}
+                    data-url="{% url 'task_done' pk=task.pk %}">Mark as done
+            </button>
+          {% endif %}
         </td>
-    </tr>
+      </tr>
     {% empty %}
-    <li>{% translate 'No tasks have been added yet!' %}</li>
+      <li>{% translate 'No tasks have been added yet!' %}</li>
     {% endfor %}
     </tbody>
-</table>
+  </table>
 {% endblock content %}
 {% block scripts %}
-{{ block.super }}
-<script src="{% static 'tasks/tasks.js' %}"></script>
+  {{ block.super }}
+  <script src="{% static 'tasks/tasks.js' %}"></script>
 {% endblock scripts %}

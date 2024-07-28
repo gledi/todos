@@ -21,6 +21,9 @@ class Post(models.Model):
         indexes = [
             models.Index(fields=['slug']),
         ]
+        permissions = [
+            ("can_publish_posts", _("Can publish posts")),
+        ]
 
     def __str__(self):
         return self.title

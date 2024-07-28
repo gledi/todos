@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>
+  <p>
     <a href="{% url 'task_update' pk=task.pk %}">Update</a>
     |
     <a href="{% url 'task_delete' pk=task.pk %}">Delete</a>
-</p>
-<h1>{{ task.title }}</h1>
-<h2>Is Done: {{ task.is_done }}</h2>
+  </p>
+  <h1>{{ task.title }}</h1>
+  <h2>Is Done: {{ task.is_done }}</h2>
 {% endblock content %}

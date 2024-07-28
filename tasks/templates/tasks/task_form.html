@@ -1,16 +1,18 @@
 {% extends "base.html" %}
+
 {% load crispy_forms_tags %}
+
 {% block title %}{% if task %}Update{% else %}Create{% endif %} new task - {{ block.super }}{% endblock title %}
 
 {% block content %}
-{% if task %}
-<h1>Update task</h1>
-{% else %}
-<h1>Add Task</h1>
-{% endif %}
-<form action="" method="post" novalidate>
+  {% if task %}
+    <h1>Update task</h1>
+  {% else %}
+    <h1>Add Task</h1>
+  {% endif %}
+  <form action="" method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
     <button type="submit" class="btn btn-primary p-2">Save</button>
-</form>
+  </form>
 {% endblock content %}
