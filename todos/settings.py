@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
 
     "debug_toolbar",
+    "django_extensions",
     "imagekit",
     "crispy_forms",
     "crispy_bootstrap5",
@@ -141,6 +142,8 @@ MEDIA_URL = "media/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 INTERNAL_IPS = ["127.0.0.1", ]
 
 LOGIN_REDIRECT_URL = "/"
@@ -151,3 +154,14 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 STRIPE_PUBLISHABLE_KEY = env.str("STRIPE_PUBLISHABLE_KEY", "pk_test_public")
 STRIPE_SECRET_KEY = env.str("STRIPE_SECRET_KEY", "sk_test_secret")
+
+SHELL_PLUS_IMPORTS = [
+    'import os',
+    'import sys',
+    'import csv',
+    'import stripe',
+    'import datetime as dt',
+    'from pathlib import Path',
+    'from pprint import pp',
+    'from stripe import StripeClient',
+]

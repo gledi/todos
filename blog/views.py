@@ -1,14 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.utils.text import slugify
+from django.views.decorators.http import require_POST
+from django.db.models import Q
+from django.contrib import messages
 
 from .models import Post
 from .forms import PostForm
 
 
 def get_post_list(request):
-    posts = Post.objects.select_related('author').filter(is_published=True).all()
+    q_filter = Q(is_published=True) if not request.user.has_perm('blog.publish_post') else Q()
+    posts = Post.objects.select_related('author').filter(q_filter).all()
     return render(request, 'blog/post_list.html', context={
         "posts": posts,
     })
@@ -24,7 +28,7 @@ def get_post_detail(request, slug):
     })
 
 
-@login_required
+@permission_required('blog.add_post')
 def create_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST)
@@ -72,3 +76,13 @@ def remove_post(request, slug):
     return render(request, 'blog/post_confirm_delete.html', context={
         "post": post,
     })
+
+
+@require_POST
+@permission_required('blog.publish_post')
+def publish_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.is_published = True
+    post.save()
+    messages.success(request, 'Post published successfully.')
+    return redirect('blog:post_detail', slug=post.slug)

@@ -1,14 +1,27 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ post.title }}</h1>
-  {% if user.is_authenticated %}
-    <div>
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>{{ post.title }}</h1>
+    <div class="d-flex justify-content-between">
+      {% if perms.blog.change_post %}
       <a href="{% url 'blog:post_edit' slug=post.slug %}" class="btn btn-secondary">Edit</a>
+      {% endif %}
+
+      {% if perms.blog.delete_post %}
       <a href="{% url 'blog:post_remove' slug=post.slug %}" class="btn btn-danger">Remove</a>
+      {% endif %}
+
+      {% if perms.blog.publish_post %}
+        <form action="{% url 'blog:post_publish' pk=post.pk %}" method="post">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-warning">Publish</button>
+        </form>
+      {% endif %}
+
     </div>
-  {% endif %}
+  </div>
   <article>
-    {{ post.body|linebreaks }}
+    {{ post.body_html|safe }}
   </article>
 {% endblock content %}

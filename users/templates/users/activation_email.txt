@@ -1,0 +1,11 @@
+{% autoescape off %}
+
+Hello {{ name }},
+
+Please visit the link below within {{ activation_period }} days to activate your account:
+
+{{ activation_url }}
+
+Thank you,
+The Todos Admin Team
+{% endautoescape %}

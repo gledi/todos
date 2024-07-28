@@ -10,4 +10,5 @@ urlpatterns = [
     path('posts/<slug>/', views.get_post_detail, name="post_detail"),
     path('posts/<slug>/edit/', views.edit_post, name="post_edit"),
     path('posts/<slug>/remove/', views.remove_post, name="post_remove"),
+    path('posts/<int:pk>/publish/', views.publish_post, name="post_publish"),
 ]

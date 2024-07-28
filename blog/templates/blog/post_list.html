@@ -5,12 +5,15 @@
 {% block content %}
   <div class="d-flex justify-content-between align-items-center">
     <h1>Blog Posts</h1>
+    {% if perms.blog.add_post %}
     <a href="{% url 'blog:post_add' %}" class="btn btn-primary">Add Post</a>
+    {% endif %}
   </div>
   {% for post in posts %}
     <article>
       <header class="d-flex">
-        <h1>{{ post.title }}</h1>
+        <h1>
+          <a href="{% url 'blog:post_detail' slug=post.slug %}">{{ post.title }}</a></h1>
       </header>
       <div>{{ post.body|truncatewords:"20" }}</div>
     </article>

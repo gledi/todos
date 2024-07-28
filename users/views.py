@@ -1,9 +1,10 @@
-import datetime
 import secrets
 
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
 from django.utils import timezone
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 
 from .models import Activation
@@ -13,7 +14,7 @@ from .forms import RegistrationForm
 User = get_user_model()
 
 
-def register(request):
+def register(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
@@ -31,7 +32,9 @@ def register(request):
             key = secrets.token_urlsafe(48)
             activation = Activation(user=user, activation_key=key)
             activation.save()
-            # send email
+
+            message = activation.generate_email_message(request)
+            message.send()
 
             return redirect('/')
     else:
@@ -41,7 +44,7 @@ def register(request):
     })
 
 
-def activate_user(request, activation_key):
+def activate_user(request: HttpRequest, activation_key: str) -> HttpResponse:
     now = timezone.now()    # now = datetime.datetime.now(datetime.UTC)
     activation = Activation.objects.select_related('user').filter(
         is_used=False,
