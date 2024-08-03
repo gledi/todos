@@ -15,3 +15,6 @@ max_line_length = 88
 [*.{css,js,html}]
 indent_size = 2
 tab_width = 2
+
+[*.txt]
+indent_style = tab

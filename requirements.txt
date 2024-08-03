@@ -1,15 +1,15 @@
-django==5.0.7
+django==5.1.1
 environs==11.0.0
 django-crispy-forms==2.3
 crispy-bootstrap5==2024.2
 pillow==10.4.0
 django-imagekit==5.0.0
-stripe==10.5.0
+stripe==10.9.0
 mysqlclient==2.2.4
 django-extensions==3.2.3
 mistune==3.0.2
 
-gunicorn==22.0.0
+gunicorn==23.0.0
 
-ipython==8.26.0
+ipython==8.27.0
 django-debug-toolbar==4.4.6
